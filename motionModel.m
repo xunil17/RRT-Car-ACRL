@@ -127,7 +127,7 @@ in = inpolygon(x(ind), y(ind), state_out.border(1,:), state_out.border(2,:));
 
 if (sum(in)>0) 
     %we have a collision
-    display('Car Has Collided');        
+%     display('Car Has Collided');        
     state_out = state_in;
     state_out.moveCount = params.max_moveCount;
     flags = 2; % collision flag

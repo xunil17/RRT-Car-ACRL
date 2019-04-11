@@ -96,7 +96,7 @@ i
         display_environment;
     end
     counter = 0;
-    disp(state)
+%     disp(state)
     % loop until maxCount has been reached or goal is found
     load save1.mat
     while (state.moveCount < params.max_moveCount && flags ~= 2)
