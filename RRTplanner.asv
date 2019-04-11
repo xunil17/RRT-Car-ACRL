@@ -4,8 +4,8 @@ clear all;
 clc;
 
 %  load map_1.mat;
-% load map_2.mat;
-load map_3.mat;
+load map_2.mat;
+% load map_3.mat;
 
 map = map_struct.seed_map;
 hold on;
@@ -86,7 +86,7 @@ for i = 1:num_nodes
     
     q_near_node = nodes(idx);
     action = action_select(q_near_node.state, q_rand_coord);
-    action = randsample([randsample(possible_actions,1), action], 1);
+    action = randsample(randsample(possible_actions,1)
     disp(action);
 %     disp(q_near_node.state)
     [q_new_node.state, flags] = steerRRT(q_near_node.state, action, number_of_timesteps_RRT, params, observed_map, observed_map, goal);

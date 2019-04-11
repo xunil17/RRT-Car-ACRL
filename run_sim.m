@@ -8,9 +8,9 @@ close all;
 clear all;
 clc;
 
-% load map_1.mat;
+load map_1.mat;
 % load map_2.mat;
-load map_3.mat;
+% load map_3.mat;
 
 load_sim_params;
 
@@ -96,7 +96,7 @@ i
         display_environment;
     end
     counter = 0;
-    
+    disp(state)
     % loop until maxCount has been reached or goal is found
     while (state.moveCount < params.max_moveCount && flags ~= 2)
     counter = counter+1;
@@ -111,7 +111,7 @@ i
         
         
         % My example policy: slight turn
-        action = 1;
+        action = -1;
         
         % Notice how with this policy, when the car gets close to the
         % unknown bridge (in map_1), on the first map sample the bridge 
@@ -127,7 +127,7 @@ i
         
         % Execute the action and update observed_map
         [state, observed_map, flags] = motionModel(params, state, action, observed_map, map_struct.map_samples{i}, goal);
-
+        
         if flags == 1
             break;
         end

@@ -1,0 +1,51 @@
+function action = action_select(state,desired_target)
+% Want to select action based on heading of state and location of desired
+% target
+denom = desired_target.x - state.x;
+    if denom == 0
+        denom = 0.01;
+    end
+    input_head = (desired_target.y - state.y) / denom;
+    desired_heading = atan(input_head);
+
+
+    if (desired_target.x < state.x)
+        desired_heading = desired_heading - pi;
+    end
+
+    if (desired_heading >= 2 * pi)
+        desired_heading = desired_heading - 2 * pi;
+    end
+
+    if (desired_heading < 0)
+        desired_heading = desired_heading + 2 * pi;
+    end
+
+	diff = desired_heading - state.theta;
+	absDiff = abs(diff);
+	retValue;
+
+	if (absDiff <= M_PI)
+	{
+		retValue = ( absDiff == M_PI ? absDiff : diff);
+	}
+
+	else if (desired_heading > state.theta)
+	{
+		retValue = ( absDiff - 2 * M_PI);
+	}
+
+	else
+	{
+		retValue = ( 2 * M_PI - absDiff);
+	}
+
+	if (abs(retValue) < 0.001) {
+		retValue = 0;
+	}
+	return retValue;
+    
+    action = desired_heading;
+
+
+end
