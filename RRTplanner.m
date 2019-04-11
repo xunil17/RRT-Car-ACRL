@@ -3,9 +3,9 @@ close all;
 clear all;
 clc;
 
-%  load map_1.mat;
+load map_1.mat;
 % load map_2.mat;
-load map_3.mat;
+% load map_3.mat;
 
 map = map_struct.seed_map;
 hold on;
@@ -32,9 +32,9 @@ DISPLAY_ON = 1; % 1 - turns display on, 0 - turns display off
 DISPLAY_TYPE = 0; % 0 - displays map as dots, 1 - displays map as blocks
 
 initialize_state;
-num_nodes = 1000;
+num_nodes = 5000;
 possible_actions = [-1:0.2:1];
-number_of_timesteps_RRT = 25;
+number_of_timesteps_RRT = 20;
 
 real_map = map_struct.map_samples{1};
 x_max = size(real_map,1);
@@ -53,7 +53,9 @@ goal_state.H = state.H;
 goal_state.border = state.H;
 goal_state.moveCount = 0;
 
-q_goal.state = goal_state;
+plot(goal_state.x, goal_state.y, 'g*','MarkerSize',4);
+
+% q_goal.state = goal_state;
 % q_goal.coord = map_struct.goal;
 % q_goal.cost = 0;
 
@@ -68,11 +70,11 @@ for i = 1:num_nodes
     plot(q_rand_coord.x, q_rand_coord.y, 'xb');
     
     % Break if goal node is already reached
-    for j = 1:1:length(nodes)
-        if nodes(j).state.x == q_goal.state.x && nodes(j).state.y == q_goal.state.y
-            break
-        end
-    end
+%     for j = 1:1:length(nodes)
+%         if nodes(j).state.x == q_goal.state.x && nodes(j).state.y == q_goal.state.y
+%             break
+%         end
+%     end
 
     % Pick the closest node from existing list to branch out from
     ndist = [];
@@ -99,11 +101,18 @@ for i = 1:num_nodes
 %         q_new_node.cost = 0;
         nodes = [nodes q_new_node];
     end
+    
+    if flags == 1
+        q_goal = q_new_node;
+        break;
+    end
+    
 %     line([200,400] , [200,400], 'Color', 'k', 'LineWidth', 2);
 %     drawnow
 %     disp([q_near_node.state.x, q_near_node.state.y, q_new_node.state.x, q_new_node.state.y]);
     line([q_new_node.state.x, q_near_node.state.x], [q_new_node.state.y, q_near_node.state.y], 'LineWidth', 1);
     drawnow
+    
 %         hold on
 %         q_new.cost = dist(q_new.coord, q_near.coord) + q_near.cost;
 %         
@@ -149,3 +158,14 @@ for i = 1:num_nodes
 %         display_environment;
 %     end
 end
+
+%% return path
+
+current_node = q_goal;
+save_commands = [];
+while current_node.parent ~= 0
+   save_commands = [ones(1,number_of_timesteps_RRT)*[current_node.action],save_commands]; 
+   current_node = nodes(current_node.parent);
+end
+
+disp(save_commands);

@@ -98,6 +98,7 @@ i
     counter = 0;
     disp(state)
     % loop until maxCount has been reached or goal is found
+    load save1.mat
     while (state.moveCount < params.max_moveCount && flags ~= 2)
     counter = counter+1;
         %---------------------------------------
@@ -111,7 +112,8 @@ i
         
         
         % My example policy: slight turn
-        action = -1;
+%         action = -1;
+        action = save_commands(counter);
         
         % Notice how with this policy, when the car gets close to the
         % unknown bridge (in map_1), on the first map sample the bridge 
