@@ -3,8 +3,8 @@ close all;
 clear all;
 clc;
 
-% load map_1.mat;
-load map_2.mat;
+load map_1.mat;
+% load map_2.mat;
 % load map_3.mat;
 
 load_sim_params;
@@ -24,7 +24,7 @@ DISPLAY_TYPE = 0; % 0 - displays map as dots, 1 - displays map as blocks
 initialize_state;
 num_nodes = 5000;
 possible_actions = [-1:0.2:1];
-number_of_timesteps_RRT = 12;
+number_of_timesteps_RRT = 10;
 
 real_map = map_struct.map_samples{1};
 for bridge_index = 1:size(map_struct.bridge_locations,2)
@@ -99,8 +99,9 @@ for i = 1:num_nodes
         idx = find(ndist==sorted_dists(index));
 
         q_near_node = nodes(idx(1));
-        action = action_select(q_near_node.state, q_rand_coord);
-    %     action = randsample([randsample(possible_actions,1), action], 1);
+%         action = action_select(q_near_node.state, q_rand_coord);
+        action = randsample(possible_actions,1);
+        action = randsample([randsample(possible_actions,1), action], 1);
 %         disp(action);
     %     disp(q_near_node.state)
         [q_new_node.state, flags] = steerRRT(q_near_node.state, action, number_of_timesteps_RRT, params, real_map, real_map, goal);
@@ -133,7 +134,7 @@ end
 
 current_node = q_goal;
 save_commands = [];
-while current_node.parent ~= 0
+while current_node(1).parent ~= 0
    save_commands = [ones(1,number_of_timesteps_RRT)*[current_node.action],save_commands]; 
    current_node = nodes(current_node.parent);
 end
