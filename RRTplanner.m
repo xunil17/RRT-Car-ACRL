@@ -22,9 +22,9 @@ DISPLAY_ON = 1; % 1 - turns display on, 0 - turns display off
 DISPLAY_TYPE = 0; % 0 - displays map as dots, 1 - displays map as blocks
 
 initialize_state;
-num_nodes = 3;
+num_nodes = 100;
 possible_actions = [-1:0.2:1];
-number_of_timesteps_RRT = 4;
+number_of_timesteps_RRT = 6;
 
 real_map = map_struct.map_samples{1};
 x_max = size(real_map,1)*10;
@@ -75,7 +75,7 @@ for i = 1:num_nodes
     
     q_near_node = nodes(idx);
     [q_new_node.state, flags] = steerRRT(q_near_node.state, action, number_of_timesteps_RRT, params, observed_map, real_map, goal);
-
+    disp(flags)
     if flags ~= 2
         q_new_node.state.H = state.H;
         q_new_node.state.border = state.border;
@@ -85,8 +85,9 @@ for i = 1:num_nodes
 %         q_new_node.cost = 0;
         nodes = [nodes q_new_node];
     end
-%         line([q_near.coord(1), q_new.coord(1)], [q_near.coord(2), q_new.coord(2)], 'Color', 'k', 'LineWidth', 2);
-%         drawnow
+%     disp([q_near_node.state.x, q_near_node.state.y, q_new_node.state.x, q_new_node.state.y]);
+%     line([q_near_node.state.x, q_near_node.state.y], [q_new_node.state.x, q_new_node.state.y], 'Color', 'k', 'LineWidth', 2);
+%     drawnow
 %         hold on
 %         q_new.cost = dist(q_new.coord, q_near.coord) + q_near.cost;
 %         
@@ -128,8 +129,7 @@ for i = 1:num_nodes
 %         % Append to nodes
 %         nodes = [nodes q_new];
 %     end
-    if (DISPLAY_ON)
-        display_environment;
-    end
-
+%     if (DISPLAY_ON)
+%         display_environment;
+%     end
 end
