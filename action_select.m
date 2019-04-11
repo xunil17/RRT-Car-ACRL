@@ -40,6 +40,20 @@ denom = desired_target.x - state.x;
         retValue = 0;
     end
     
-    action = retValue/pi;
+    if retValue <= -pi/2
+       action = -1;
+    elseif retValue >= pi/2
+        action = 1;
+    else
+        action = retValue/(pi/2);
+    end
+    
+    action = action + (rand(1)*0.2) - 0.1;
+    
+    if action < -1
+        action = -1;
+    elseif action > 1
+        action = 1;
+    end
 
 end
