@@ -3,9 +3,9 @@ close all;
 clear all;
 clc;
 
-% load map_1.mat;
+load map_1.mat;
 % load map_2.mat;
-load map_3.mat;
+% load map_3.mat;
 
 load_sim_params;
 
@@ -26,8 +26,8 @@ num_nodes = 5000;
 possible_actions = [-1:0.2:1];
 number_of_timesteps_RRT = 20;
 
-% real_map = observed_map;
-real_map = map_struct.map_samples{1};
+real_map = observed_map;
+% real_map = map_struct.map_samples{1};
 for bridge_index = 1:size(map_struct.bridge_locations,2)
   real_map(map_struct.bridge_locations(1,bridge_index), map_struct.bridge_locations(1,bridge_index)) = 0;
 end
