@@ -3,9 +3,9 @@ close all;
 clear all;
 clc;
 
-% load map_1.mat;
+load map_1.mat;
 % load map_2.mat;
-load map_3.mat;
+% load map_3.mat;
 
 load_sim_params;
 
@@ -20,14 +20,14 @@ scale = 9;
 
 DISPLAY_ON = 1; % 1 - turns display on, 0 - turns display off
 DISPLAY_TYPE = 0; % 0 - displays map as dots, 1 - displays map as blocks
-
+M_CVF = 4;
 initialize_state;
 num_nodes = 5000;
 possible_actions = [-1:0.2:1];
 number_of_timesteps_RRT = 9;
 
-real_map = observed_map;
-% real_map = map_struct.map_samples{1};
+% real_map = observed_map;
+real_map = map_struct.map_samples{1};
 for bridge_index = 1:size(map_struct.bridge_locations,2)
   real_map(map_struct.bridge_locations(1,bridge_index), map_struct.bridge_locations(1,bridge_index)) = 0;
 end
@@ -47,7 +47,7 @@ y_max = size(real_map,2);
 % q_start.coord = map_struct.start;
 q_start.state = state;
 q_start.action = 0;
-% q_start.cost = 0;
+q_start.CVF = 0;
 q_start.parent = 0;
 
 goal_state.x = map_struct.goal.x;
@@ -88,6 +88,7 @@ for i = 1:num_nodes
 
     % Pick the closest node from existing list to branch out from
     ndist = [];
+    flags = 0;
     for j = 1:1:length(nodes)
         n = nodes(j);
         tmp = dist(n.state, q_rand_coord);
@@ -99,29 +100,47 @@ for i = 1:num_nodes
     for index = 1:1:length(sorted_dists)
         idx = find(ndist==sorted_dists(index));
 
-        q_near_node = nodes(idx(1));
-        action = action_select(q_near_node.state, q_rand_coord);
-%         action = randsample(possible_actions,1);
-        action = randsample([randsample(possible_actions,1), action], 1);
-%         disp(action);
-    %     disp(q_near_node.state)
-        [q_new_node.state, flags] = steerRRT(q_near_node.state, action, number_of_timesteps_RRT, params, real_map, real_map, goal);
-        if flags ~= 2
-            q_new_node.state.H = state.H;
-            q_new_node.state.border = state.border;
-            q_new_node.state.moveCount = 0;
-            q_new_node.parent = idx;
-            q_new_node.action = action;
+        q_near_node_id = idx(1);
+        q_near_node = nodes(q_near_node_id);
+        rand_skip = rand;
+        disp(q_near_node.CVF);
+        if rand_skip > q_near_node.CVF/M_CVF
+        
+            action = action_select(q_near_node.state, q_rand_coord);
+    %         action = randsample(possible_actions,1);
+            action = randsample([randsample(possible_actions,1), action], 1);
+    %         disp(action);
+        %     disp(q_near_node.state)
+            [q_new_node.state, flags] = steerRRT(q_near_node.state, action, number_of_timesteps_RRT, params, real_map, real_map, goal);
+            if flags ~= 2
+                q_new_node.state.H = state.H;
+                q_new_node.state.border = state.border;
+                q_new_node.state.moveCount = 0;
+                q_new_node.parent = q_near_node_id;
+                q_new_node.action = action;
+                q_new_node.CVF = 0;
 
-            nodes = [nodes q_new_node];
-            line([q_new_node.state.x, q_near_node.state.x], [q_new_node.state.y, q_near_node.state.y], 'LineWidth', 1);
-            drawnow
-            if flags == 1
-                disp("REACHED GOAL INNER");
-                q_goal = q_new_node;
+                nodes = [nodes q_new_node];
+                line([q_new_node.state.x, q_near_node.state.x], [q_new_node.state.y, q_near_node.state.y], 'LineWidth', 1);
+                drawnow
+                if flags == 1
+                    disp("REACHED GOAL INNER");
+                    q_goal = q_new_node;
+                    break;
+                end
                 break;
+            else %%hit into a wall
+                current_node_id = q_near_node_id;
+                current_node = q_near_node;
+                count = 0;
+                while current_node.parent ~= 0
+                    current_node.CVF = current_node.CVF + 1/(M_CVF^count);
+                    nodes(current_node_id) = current_node;
+                    count = count + 1;
+                    current_node_id = current_node.parent;
+                    current_node = nodes(current_node_id);
+                end
             end
-            break;
         end
     end
     if flags == 1
@@ -135,9 +154,9 @@ end
 
 current_node = q_goal;
 save_commands = [];
-while current_node(1).parent ~= 0
-   save_commands = [ones(1,number_of_timesteps_RRT)*[current_node(1).action],save_commands]; 
-   current_node = nodes(current_node(1).parent);
+while current_node.parent ~= 0
+   save_commands = [ones(1,number_of_timesteps_RRT)*[current_node.action],save_commands]; 
+   current_node = nodes(current_node.parent);
 end
 
 disp(save_commands);
