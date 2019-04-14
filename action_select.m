@@ -83,20 +83,24 @@ function [action_choose, goal_reached] = action_select(og_state, goal, random_po
         end
     end
     action_choose = action_best;
-    
-    rand_num = rand;
-    if rand_num > 0.5
-       action_choose = action_best;
-    else
-       action_choose = action_random_goal;
+
+    action_choose = action_random_goal;
+    action_choose = action_choose + (rand(1)*0.2) - 0.1;
+    if action_choose < -1
+        action_choose = -1;
+    elseif action_choose > 1
+        action_choose = 1;
     end
-%     
-%     action = action + (rand(1)*0.2) - 0.1;
-    
-%     if action < -1
-%         action = -1;
-%     elseif action > 1
-%         action = 1;
+%     rand_num = rand;
+%     if rand_num > 0.5
+%        action_choose = action_best;
+%     else
+%         action_choose=action_best;
+% %         action_choose = action_random_goal;
 %     end
+%     
+%     
+    
+
 
 end

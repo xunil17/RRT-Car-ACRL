@@ -4,8 +4,8 @@ clear all;
 clc;
 
 % load map_1.mat;
-load map_2.mat;
-% load map_3.mat;
+% load map_2.mat;
+load map_3.mat;
 
 load_sim_params;
 
@@ -20,14 +20,14 @@ scale = 9;
 
 DISPLAY_ON = 1; % 1 - turns display on, 0 - turns display off
 DISPLAY_TYPE = 0; % 0 - displays map as dots, 1 - displays map as blocks
-M_CVF = 4;
+M_CVF = 5;
 initialize_state;
 num_nodes = 5000;
 possible_actions = [-1:0.2:1];
-number_of_timesteps_RRT = 9;
+number_of_timesteps_RRT = 20;
 
-real_map = observed_map;
-% real_map = map_struct.map_samples{1};
+% real_map = observed_map;
+real_map = map_struct.map_samples{1};
 for bridge_index = 1:size(map_struct.bridge_locations,2)
   real_map(map_struct.bridge_locations(1,bridge_index), map_struct.bridge_locations(1,bridge_index)) = 0;
 end
@@ -106,19 +106,20 @@ for i = 1:num_nodes
         rand_skip = rand;
 %         disp(q_near_node.CVF);
         if rand_skip > q_near_node.CVF/M_CVF
-            if dist(q_near_node.state,goal) < 10
-                number_of_timesteps_RRT = 6;
-            else
-                number_of_timesteps_RRT = 9;
-%                 number_of_timesteps_RRT = randsample(6:12,1);
-            end
-        
+%             if dist(q_near_node.state,goal) < 10
+%                 number_of_timesteps_RRT = 6;
+%             else
+%                 number_of_timesteps_RRT = 12;
+% %                 
+%             end
+%         
 %             action = action_select(q_near_node.state, q_rand_coord, goal, number_of_timesteps_RRT);
             [action, goal_reached] = action_select(q_near_node.state, goal, q_rand_coord, params, observed_map, real_map, number_of_timesteps_RRT);
             %         action = randsample(possible_actions,1);
-%             if ~goal_reached
-%             	action = randsample([randsample(possible_actions,1), action], 1);
-%             end
+            if ~goal_reached
+            	action = randsample([(rand(1)*2) - 1, action], 1);
+%                 action = randsample([randsample(possible_actions,1), action], 1);
+            end
     %         disp(action);
         %     disp(q_near_node.state)
             [q_new_node.state, flags] = steerRRT(q_near_node.state, action, number_of_timesteps_RRT, params, real_map, real_map, goal);
