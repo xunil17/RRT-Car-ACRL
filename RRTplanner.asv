@@ -3,8 +3,8 @@ close all;
 clear all;
 clc;
 
-% load map_1.mat;
-load map_2.mat;
+load map_1.mat;
+% load map_2.mat;
 % load map_3.mat;
 
 load_sim_params;
@@ -26,8 +26,8 @@ num_nodes = 5000;
 possible_actions = [-1:0.2:1];
 number_of_timesteps_RRT = 9;
 
-real_map = observed_map;
-% real_map = map_struct.map_samples{1};
+% real_map = observed_map;
+real_map = map_struct.map_samples{1};
 for bridge_index = 1:size(map_struct.bridge_locations,2)
   real_map(map_struct.bridge_locations(1,bridge_index), map_struct.bridge_locations(1,bridge_index)) = 0;
 end
@@ -68,7 +68,7 @@ nodes(1) = q_start;
 %% -----------------------------------------------------------------------
 for i = 1:num_nodes
 %     action = randsample(possible_actions,1);
-    if rand(1) >= 0.80
+    if rand(1) >= 0.90
         q_rand_coord.x = goal_state.x;
         q_rand_coord.y = goal_state.y;
     else
@@ -115,6 +115,7 @@ for i = 1:num_nodes
         
 %             action = action_select(q_near_node.state, q_rand_coord, goal, number_of_timesteps_RRT);
             [action, goal_reached] = action_select(q_near_node.state, goal, q_rand_coord, params, observed_map, real_map, number_of_timesteps_RRT);
+            disp(action);
             %         action = randsample(possible_actions,1);
 %             if ~goal_reached
 %             	action = randsample([randsample(possible_actions,1), action], 1);

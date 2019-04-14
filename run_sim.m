@@ -8,9 +8,9 @@ close all;
 clear all;
 clc;
 
-% load map_1.mat;
+load map_1.mat;
 % load map_2.mat;
-load map_3.mat;
+% load map_3.mat;
 
 load_sim_params;
 
@@ -98,7 +98,7 @@ i
     counter = 0;
 %     disp(state)
     % loop until maxCount has been reached or goal is found
-    load map3_2.mat
+    load new_map1.mat
     while (state.moveCount < params.max_moveCount && flags ~= 2)
     counter = counter+1;
         %---------------------------------------
