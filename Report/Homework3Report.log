@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.2)  15 APR 2019 12:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.11.2)  15 APR 2019 13:48
 entering extended mode
 **./Homework3Report.tex
 (Homework3Report.tex
@@ -264,10 +264,24 @@ Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \@lastruleclass=\count190
 \@thisrulewidth=\dimen147
 )
-("D:\Users\Sean\AppData\Local\Programs\MiKTeX 2.9\tex\latex\cleveref\cleveref.s
-ty"
-Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
-Package cleveref Info: `algorithmicx' support loaded on input line 3120.
+("D:\Users\Sean\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+Package: inputenc 2018/04/06 v1.3b Input encoding file
+\inpenc@prehook=\toks17
+\inpenc@posthook=\toks18
+
+("D:\Users\Sean\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ucs\utf8x.def"
+File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
+))
+("D:\Users\Sean\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ucs\ucs.sty"
+Package: ucs 2013/05/11 v2.2 UCS: Unicode input support
+
+("D:\Users\Sean\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ucs\uni-global.def"
+File: uni-global.def 2013/05/13 UCS: Unicode global data
+)
+\uc@secondtry=\count191
+\uc@combtoks=\toks19
+\uc@combtoksb=\toks20
+\uc@temptokena=\toks21
 )
 ("D:\Users\Sean\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\graphicx.s
 ty"
@@ -276,7 +290,7 @@ Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 ("D:\Users\Sean\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\keyval.sty
 "
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks17
+\KV@toks@=\toks22
 )
 ("D:\Users\Sean\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\graphics.s
 ty"
@@ -306,33 +320,36 @@ Package: cite 2015/02/27  v 5.5
 (Homework3Report.aux)
 \openout1 = `Homework3Report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
 
+("D:\Users\Sean\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ucs\ucsencs.def"
+File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
+)
 ("D:\Users\Sean\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-pdf.mki
 i"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count191
+\scratchcounter=\count192
 \scratchdimen=\dimen150
 \scratchbox=\box44
-\nofMPsegments=\count192
-\nofMParguments=\count193
-\everyMPshowfont=\toks18
-\MPscratchCnt=\count194
+\nofMPsegments=\count193
+\nofMParguments=\count194
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count195
 \MPscratchDim=\dimen151
-\MPnumerator=\count195
-\makeMPintoPDFobject=\count196
-\everyMPtoPDFconversion=\toks19
+\MPnumerator=\count196
+\makeMPintoPDFobject=\count197
+\everyMPtoPDFconversion=\toks24
 )
 ("D:\Users\Sean\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-b
 ase.sty"
@@ -397,46 +414,75 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 20--24
+Underfull \hbox (badness 10000) in paragraph at lines 21--25
 
  []
 
-
-LaTeX Warning: Citation `Lavalle98' on page 1 undefined on input line 31.
-
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 35.
+(Font)              <10.95> on input line 36.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 35.
+(Font)              <8> on input line 36.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 35.
-No file Homework3Report.bbl.
+(Font)              <6> on input line 36.
 [1
 
-{C:/Users/Sean/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-(Homework3Report.aux)
+{C:/Users/Sean/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+<../Figures/map1a.png, id=11, 421.575pt x 316.0608pt>
+File: ../Figures/map1a.png Graphic file (type png)
+<use ../Figures/map1a.png>
+Package pdftex.def Info: ../Figures/map1a.png  used on input line 90.
+(pdftex.def)             Requested size: 219.22025pt x 164.35255pt.
+<../Figures/map2.png, id=12, 421.575pt x 316.0608pt>
+File: ../Figures/map2.png Graphic file (type png)
+<use ../Figures/map2.png>
+Package pdftex.def Info: ../Figures/map2.png  used on input line 91.
+(pdftex.def)             Requested size: 219.22025pt x 164.35255pt.
+<../Figures/map3.png, id=13, 421.575pt x 316.0608pt>
+File: ../Figures/map3.png Graphic file (type png)
+<use ../Figures/map3.png>
+Package pdftex.def Info: ../Figures/map3.png  used on input line 92.
+(pdftex.def)             Requested size: 219.22025pt x 164.35255pt.
+<../Figures/map2_fail.png, id=14, 421.575pt x 316.18124pt>
+File: ../Figures/map2_fail.png Graphic file (type png)
+<use ../Figures/map2_fail.png>
+Package pdftex.def Info: ../Figures/map2_fail.png  used on input line 93.
+(pdftex.def)             Requested size: 219.22025pt x 164.41519pt.
 
-LaTeX Warning: There were undefined references.
 
- ) 
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+(Homework3Report.bbl [2]
+("D:\Users\Sean\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ucs\uni-34.def"
+File: uni-34.def 2013/05/13 UCS: Unicode data U+2200..U+22FF
+)
+Underfull \hbox (badness 1596) in paragraph at lines 15--18
+[]\OT1/cmr/m/n/10.95 C. Urm-son and R. Sim-mons.  Ap-proaches for heuris-ti-cal
+ly bi-as-ing RRT growth.
+ []
+
+) [3 <../Figures/map1a.png (PNG copy)> <../Figures/map2.png (PNG copy)> <../Fig
+ures/map3.png (PNG copy)> <../Figures/map2_fail.png (PNG copy)>]
+(Homework3Report.aux) ) 
 Here is how much of TeX's memory you used:
- 13359 strings out of 492970
- 258292 string characters out of 3127038
- 398362 words of memory out of 3000000
- 17182 multiletter control sequences out of 15000+200000
- 536595 words of font info for 38 fonts, out of 3000000 for 9000
+ 12568 strings out of 492970
+ 232644 string characters out of 3127038
+ 399362 words of memory out of 3000000
+ 16368 multiletter control sequences out of 15000+200000
+ 536941 words of font info for 39 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,5n,63p,445b,275s stack positions out of 5000i,500n,10000p,200000b,50000s
-<D:/Users/Sean/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmbx10.pfb><D:/Users/Sean/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmbx12.pfb><D:/Users/Sean/AppData/Local/Programs/MiKTeX 2.9/font
-s/type1/public/amsfonts/cm/cmmi10.pfb><D:/Users/Sean/AppData/Local/Programs/MiK
-TeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><D:/Users/Sean/AppData/Local/P
-rograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Users/Sean/AppD
-ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on Homework3Report.pdf (2 pages, 84030 bytes).
+ 41i,9n,63p,880b,571s stack positions out of 5000i,500n,10000p,200000b,50000s
+<D:/Users/Sean/AppData/Local/Programs/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmbx10.pfb><D:/Users/Sean/AppData/Local/Programs/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/Users/Sean/AppData/Local/Pro
+grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/Users/Sean/AppDa
+ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><D:/Users
+/Sean/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pf
+b><D:/Users/Sean/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmsy10.pfb><D:/Users/Sean/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmti10.pfb>
+Output written on Homework3Report.pdf (3 pages, 268058 bytes).
 PDF statistics:
- 33 PDF objects out of 1000 (max. 8388607)
+ 44 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

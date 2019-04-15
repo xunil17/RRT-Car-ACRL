@@ -9,12 +9,12 @@ clear all;
 clc;
 
 % load map_1.mat;
-load map_2.mat;
-% load map_3.mat;
+% load map_2.mat;
+load map_3.mat;
 
 % if bridge probability open is above this number, RRT assumes that its
 % open
-IGNORE_BRIDGE_SETTING = 0.65;
+IGNORE_BRIDGE_SETTING = 0.6;
 
 load_sim_params;
 
@@ -113,7 +113,7 @@ i
     counter = 0;
 %     disp(state)
     % loop until maxCount has been reached or goal is found
-%     load map3_save.mat
+%     load saved_paths/new_map2.mat
     while (state.moveCount < params.max_moveCount && flags ~= 2)
     
         %---------------------------------------
