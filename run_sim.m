@@ -14,7 +14,7 @@ load map_2.mat;
 
 % if bridge probability open is above this number, RRT assumes that its
 % open
-IGNORE_BRIDGE_SETTING = 0.6;
+IGNORE_BRIDGE_SETTING = 0.65;
 
 load_sim_params;
 
@@ -73,7 +73,7 @@ RRT_map = map_struct.seed_map;
 for map_prob_index = 1:length(map_struct.bridge_probabilities)
     bridge_probabilities = map_struct.bridge_probabilities(map_prob_index);
 %     disp(bridge_probabilities)
-    if IGNORE_BRIDGE_SETTING < 0.7
+    if bridge_probabilities < IGNORE_BRIDGE_SETTING
         point = map_struct.bridge_locations(:,map_prob_index);
         RRT_map(point(2),point(1)) = 0;
     end

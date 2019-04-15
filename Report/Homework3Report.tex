@@ -1,0 +1,79 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage{comment} % enables the use of multi-line comments (\ifx \fi) 
+\usepackage{lipsum} %This package just generates Lorem Ipsum filler text. 
+\usepackage{fullpage} % changes the margin
+%\usepackage[]{algorithm2e}
+\usepackage{algorithm}% http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+\usepackage[para,online,flushleft]{threeparttable}
+\usepackage{booktabs}
+\usepackage{cleveref}
+\usepackage{graphicx}
+\usepackage{cite}
+%\renewcommand\thesubsection{\Alph{subsection}}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+%Header-Make sure you update this information!!!!
+\noindent
+\large\textbf{Nonholonomic Planning Assignment 3 Report} \hfill \textbf{Sean Ye, Patrick Grady} \\
+\normalsize CS 8803 - Adaptive Control and Reinforcement Learning \\
+Prof. Byron Boots \hfill Date: 04/15/2019 \\
+
+\section{Overview}
+
+For this assignment, we chose to use an RRT planner to generate feasible paths for the car to follow. The planner is able to produce paths for all maps given bridges are open but does not converge in a reasonable time to produce plans through the many tight turns on maps 2 and 3.
+
+\section{Nonholonomic RRT Planner}
+
+The basic RRT algorithm implemented is shown below (\ref{alg:RRT}). This algorithm was first described by LaValle in 1998. \cite{Lavalle98}
+
+\begin{algorithm}[H]
+    \begin{algorithmic}
+    \State Initialize Tree $T$
+    \While{$x_{goal}$ not reached }
+    		\State $x_{rand} <- RANDOM\_STATE()$
+    		\State $x_{near} <- NEAREST\_NEIGHBOR(x_{rand}, T)$
+    		\State $u_{new} <- SELECT\_CONTROL(x_{rand}, x_{near})$
+    		\State $x_{new} <- STEER(u_{new}, x_{near})$
+    		\State $T.add\_vertex(x_{new})$
+    		\State $T.add\_edge(x_{near}, x_{new}, u_{new})$
+	\EndWhile    	
+    \end{algorithmic}
+\caption{RRT Algorithm}
+\label{alg:RRT}
+\end{algorithm}
+
+Several modifications were made to this algorithm to perform better for this project. Each modification with respect to the function is listed here:
+
+\subsection{RANDOM\_STATE()}
+Rather than a completely random point chosen for the RRT, we decided to choose the goal point 15 percent of the time. This heuristically biases the tree to keep on trying to explore regions to get to the goal.
+
+\section{Results}
+
+
+
+
+\section{Conclusion and Future Work}
+The final results of the training are shown in Figure 1 below. I ran 7 episodes which resulted in an agent capable of scoring a million points on average. While still a very good performance, it does not achieve the same scores as Thiery and Scherrer, with their training curve reproduced below in Figure 2 (where the DU line is the same feature set that I used). The time it took to train the agent took about 10 hours.
+
+%\begin{figure}[h!]
+%	\centering
+%	\includegraphics[scale=0.8]{training.png}
+%	\caption{Learning Curve}
+%	\label{fig:learncurve}
+%\end{figure} 
+
+
+
+\section*{Attachments}
+%Make sure to change these
+Code can be run with run\_sim.m, first displays progress of RRT planner and then runs the path
+%\fi %comment me out
+
+\bibliography{RRT_bib.bib}
+\bibliographystyle{plain}
+
+\end{document}

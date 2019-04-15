@@ -72,12 +72,12 @@ function [action_choose, goal_reached] = action_select(og_state, goal, random_po
             action_choose = action;
             return
         elseif flags == 0 %didn't hit obstacle
-           if dist(state, goal) < dist_save_goal
-                dist_save_goal = dist(state,goal);
+           if dist_manhattan(state, goal) < dist_save_goal
+                dist_save_goal = dist_manhattan(state,goal);
                 action_best = action;
            end
-           if dist(state, random_point) < dist_random_point
-              dist_random_point = dist(state, random_point);
+           if dist_manhattan(state, random_point) < dist_random_point
+              dist_random_point = dist_manhattan(state, random_point);
               action_random_goal = action; 
            end
         end

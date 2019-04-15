@@ -28,10 +28,8 @@ number_of_timesteps_RRT = 20;
 
 % RRT_map = observed_map;
 % RRT_map = map_struct.map_samples{1};
-% for bridge_index = 1:size(map_struct.bridge_locations,2)
-%   RRT_map(map_struct.bridge_locations(1,bridge_index), map_struct.bridge_locations(1,bridge_index)) = 0;
-% end
 
+%Display map
 hold on;
 for x = 1:size(RRT_map,1)
    for y = 1:size(RRT_map,2)
@@ -59,15 +57,12 @@ goal_state.moveCount = 0;
 
 plot(goal_state.x, goal_state.y, 'g*','MarkerSize',4);
 
-% q_goal.state = goal_state;
-% q_goal.coord = map_struct.goal;
-% q_goal.cost = 0;
-
 nodes(1) = q_start;
 
 %% -----------------------------------------------------------------------
 for i = 1:num_nodes
 %     action = randsample(possible_actions,1);
+    %choose goal target 20 percent of the time
     if rand(1) >= 0.80
         q_rand_coord.x = goal_state.x;
         q_rand_coord.y = goal_state.y;
@@ -77,14 +72,6 @@ for i = 1:num_nodes
     end
 
     hold on;
-%     plot(q_rand_coord.x, q_rand_coord.y, 'xb');
-    
-    % Break if goal node is already reached
-%     for j = 1:1:length(nodes)
-%         if nodes(j).state.x == q_goal.state.x && nodes(j).state.y == q_goal.state.y
-%             break
-%         end
-%     end
 
     % Pick the closest node from existing list to branch out from
     ndist = [];
@@ -94,10 +81,9 @@ for i = 1:num_nodes
         tmp = dist(n.state, q_rand_coord);
         ndist = [ndist tmp];
     end
-%     [val, idx] = min(ndist);
     sorted_dists = sort(ndist);
-%     disp(sorted_dists(1))      
     
+    %For every node in tree, try extending to closest one
     for index = 1:1:length(sorted_dists)
         idx = find(ndist==sorted_dists(index));
 
@@ -105,6 +91,7 @@ for i = 1:num_nodes
         q_near_node = nodes(q_near_node_id);
         rand_skip = rand;
 %         disp(q_near_node.CVF);
+        %skip expanding nodes if they have too many children nodes
         if rand_skip > q_near_node.CVF/M_CVF
 %             if dist(q_near_node.state,goal) < 10
 %                 number_of_timesteps_RRT = 6;
@@ -114,14 +101,16 @@ for i = 1:num_nodes
 %             end
 %         
 %             action = action_select(q_near_node.state, q_rand_coord, goal, number_of_timesteps_RRT);
+            
+            %select action that brings us closest to manhattan distance of
+            %goal
             [action, goal_reached] = action_select(q_near_node.state, goal, q_rand_coord, params, observed_map, RRT_map, number_of_timesteps_RRT);
             %         action = randsample(possible_actions,1);
             if ~goal_reached
             	action = randsample([(rand(1)*2) - 1, action], 1);
 %                 action = randsample([randsample(possible_actions,1), action], 1);
             end
-    %         disp(action);
-        %     disp(q_near_node.state)
+
             [q_new_node.state, flags] = steerRRT(q_near_node.state, action, number_of_timesteps_RRT, params, RRT_map, RRT_map, goal);
             if flags ~= 2
                 q_new_node.state.H = state.H;
@@ -166,10 +155,16 @@ end
 current_node = q_goal;
 save_commands = [];
 while current_node.parent ~= 0
-   act = current_node.action(1);
-   timestep = current_node.action(2);
-   save_commands = [ones(1,timestep)*act,save_commands]; 
-   current_node = nodes(current_node.parent);
+    act = current_node.action(1);
+    timestep = current_node.action(2);
+    save_commands = [ones(1,timestep)*act,save_commands];
+    parent_node = nodes(current_node.parent);
+    line([current_node.state.x, current_node.state.x], [parent_node.state.y, parent_node.state.y], 'LineWidth', 2, 'Color', 'green');
+    drawnow
+    current_node = parent_node;
+    
 end
-
-disp(save_commands);
+saveas(gcf,'RRT_planner.png')
+disp("Number Of Nodes: ");
+disp(i);
+% disp(save_commands);
