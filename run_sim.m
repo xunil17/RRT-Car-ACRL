@@ -9,8 +9,8 @@ clear all;
 clc;
 
 % load map_1.mat;
-% load map_2.mat;
-load map_3.mat;
+load map_2.mat;
+% load map_3.mat;
 
 load_sim_params;
 
@@ -65,6 +65,14 @@ DISPLAY_TYPE = 1; % 0 - displays map as dots, 1 - displays map as blocks
 %        end
 %    end
 % end
+for i = 1:length(map_struct.bridge_probabilities)
+   bridge_probabilities = map_struct.bridge_probabilities(i);
+   disp(bridge_probabilities)
+   if bridge_probabilites > 0.65
+       
+   end
+end
+
 % 
 % ylim([0,50]);
 % xlim([0,50]);
@@ -100,7 +108,7 @@ i
     % loop until maxCount has been reached or goal is found
     load map3_save.mat
     while (state.moveCount < params.max_moveCount && flags ~= 2)
-    counter = counter+1;
+    
         %---------------------------------------
         %
         %*****************************
@@ -110,9 +118,9 @@ i
         % Here you execute your policy (which may include re-planning or
         % any technique you consider necessary):
         
-        
+        counter = counter+1;
         % My example policy: slight turn
-%         action = -1;
+        % action = -1;
         action = save_commands(counter);
         
         % Notice how with this policy, when the car gets close to the
