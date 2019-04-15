@@ -12,6 +12,10 @@ clc;
 load map_2.mat;
 % load map_3.mat;
 
+% if bridge probability open is above this number, RRT assumes that its
+% open
+IGNORE_BRIDGE_SETTING = 0.6;
+
 load_sim_params;
 
 % scale is used to blow up the environment for display purposes only. Set
@@ -65,13 +69,16 @@ DISPLAY_TYPE = 1; % 0 - displays map as dots, 1 - displays map as blocks
 %        end
 %    end
 % end
-for i = 1:length(map_struct.bridge_probabilities)
-   bridge_probabilities = map_struct.bridge_probabilities(i);
-   disp(bridge_probabilities)
-   if bridge_probabilites > 0.65
-       
-   end
+RRT_map = map_struct.seed_map;
+for map_prob_index = 1:length(map_struct.bridge_probabilities)
+    bridge_probabilities = map_struct.bridge_probabilities(map_prob_index);
+%     disp(bridge_probabilities)
+    if IGNORE_BRIDGE_SETTING < 0.7
+        point = map_struct.bridge_locations(:,map_prob_index);
+        RRT_map(point(2),point(1)) = 0;
+    end
 end
+RRTplanner;
 
 % 
 % ylim([0,50]);
@@ -106,7 +113,7 @@ i
     counter = 0;
 %     disp(state)
     % loop until maxCount has been reached or goal is found
-    load map3_save.mat
+%     load map3_save.mat
     while (state.moveCount < params.max_moveCount && flags ~= 2)
     
         %---------------------------------------

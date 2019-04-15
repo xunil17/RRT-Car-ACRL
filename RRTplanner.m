@@ -1,48 +1,48 @@
 %% -----------------------------------------------------------------------
-close all;
-clear all;
-clc;
+% close all;
+% clear all;
+% clc;
 
-load map_1.mat;
+% load map_1.mat;
 % load map_2.mat;
 % load map_3.mat;
-
-load_sim_params;
-
-% scale is used to blow up the environment for display purposes only. Set
-% to whatever looks good on your screen
-scale = 9;
-
-% determines the size of the map and creates a meshgrid for display
-% purposes
-[N,M] = size(map_struct.seed_map);
-[x,y] = meshgrid(1:N, 1:M);
-
-DISPLAY_ON = 1; % 1 - turns display on, 0 - turns display off
-DISPLAY_TYPE = 0; % 0 - displays map as dots, 1 - displays map as blocks
+% 
+% load_sim_params;
+% 
+% % scale is used to blow up the environment for display purposes only. Set
+% % to whatever looks good on your screen
+% scale = 9;
+% 
+% % determines the size of the map and creates a meshgrid for display
+% % purposes
+% [N,M] = size(map_struct.seed_map);
+% [x,y] = meshgrid(1:N, 1:M);
+% 
+% DISPLAY_ON = 1; % 1 - turns display on, 0 - turns display off
+% DISPLAY_TYPE = 0; % 0 - displays map as dots, 1 - displays map as blocks
 M_CVF = 5;
 initialize_state;
 num_nodes = 5000;
 possible_actions = [-1:0.2:1];
 number_of_timesteps_RRT = 20;
 
-real_map = observed_map;
-% real_map = map_struct.map_samples{1};
-for bridge_index = 1:size(map_struct.bridge_locations,2)
-  real_map(map_struct.bridge_locations(1,bridge_index), map_struct.bridge_locations(1,bridge_index)) = 0;
-end
+% RRT_map = observed_map;
+% RRT_map = map_struct.map_samples{1};
+% for bridge_index = 1:size(map_struct.bridge_locations,2)
+%   RRT_map(map_struct.bridge_locations(1,bridge_index), map_struct.bridge_locations(1,bridge_index)) = 0;
+% end
 
 hold on;
-for x = 1:size(real_map,1)
-   for y = 1:size(real_map,2)
-       if real_map(x,y) == 0
+for x = 1:size(RRT_map,1)
+   for y = 1:size(RRT_map,2)
+       if RRT_map(x,y) == 0
           obstacle_plot = plot(y, x, 'r*','MarkerSize',3); 
        end
    end
 end
 
-x_max = size(real_map,1);
-y_max = size(real_map,2);
+x_max = size(RRT_map,1);
+y_max = size(RRT_map,2);
 
 % q_start.coord = map_struct.start;
 q_start.state = state;
@@ -114,7 +114,7 @@ for i = 1:num_nodes
 %             end
 %         
 %             action = action_select(q_near_node.state, q_rand_coord, goal, number_of_timesteps_RRT);
-            [action, goal_reached] = action_select(q_near_node.state, goal, q_rand_coord, params, observed_map, real_map, number_of_timesteps_RRT);
+            [action, goal_reached] = action_select(q_near_node.state, goal, q_rand_coord, params, observed_map, RRT_map, number_of_timesteps_RRT);
             %         action = randsample(possible_actions,1);
             if ~goal_reached
             	action = randsample([(rand(1)*2) - 1, action], 1);
@@ -122,7 +122,7 @@ for i = 1:num_nodes
             end
     %         disp(action);
         %     disp(q_near_node.state)
-            [q_new_node.state, flags] = steerRRT(q_near_node.state, action, number_of_timesteps_RRT, params, real_map, real_map, goal);
+            [q_new_node.state, flags] = steerRRT(q_near_node.state, action, number_of_timesteps_RRT, params, RRT_map, RRT_map, goal);
             if flags ~= 2
                 q_new_node.state.H = state.H;
                 q_new_node.state.border = state.border;
