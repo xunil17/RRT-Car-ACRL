@@ -8,9 +8,11 @@ close all;
 clear all;
 clc;
 
+create_map_struct
+
 % load map_1.mat;
 % load map_2.mat;
-load map_3.mat;
+% load map_3.mat;
 
 % if bridge probability open is above this number, RRT assumes that its
 % open
